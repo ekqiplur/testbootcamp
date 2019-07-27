@@ -1,0 +1,13 @@
+body {
+	color: #797979;
+	background: #eaeaea;
+	padding: 0px;
+    margin: 0px;
+}
+.form-group{
+	margin-top: 50px;
+}
+
+#control{
+	width: 50%;
+}

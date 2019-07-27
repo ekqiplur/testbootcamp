@@ -1,0 +1,70 @@
+CREATE DATABASE perserta;
+
+CREATE TABLE cities(
+    id int(10) NOT NULL auto_increment,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE users(
+    id int(10) NOT NULL auto_increment,
+    full_name VARCHAR(50) NOT NULL,
+	place_of_birth_id INT(10) NOT NULL,
+	date_of_birth DATE NOT NULL,
+	phone_number VARCHAR(50) NOT NULL,
+	address TEXT NOT NULL,
+	last_education ENUM ("SMP","SMA","S1"),
+	religion ENUM ("islam","kristen","katolik"),
+    PRIMARY KEY (id),
+	FOREIGN KEY (place_of _birth_id) REFERENCES cities(id)
+);
+
+CREATE TABLE hobbies(
+    id int(10) NOT NULL auto_increment,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE users_hobbies(
+    biodata_id int(10),
+    hobby_id int(10),
+	FOREIGN KEY (biodata_id) REFERENCES users(id),
+	FOREIGN KEY (hobby_id) REFERENCES hobbies(id),
+);
+
+
+INSERT INTO cities(id,nama) VALUES ('','Jakarta'),
+									('','Bandung'),	
+									('','Semarang');
+
+INSERT INTO users(id, 
+					full_name, 
+					place_of_birth_id, 
+					date_of_birth, 
+					phone_number, 
+					address,
+					last_education, 
+					religion) 
+					VALUES ('1', 
+							'Lucinta Luna', 
+							'1', 
+							'17-07-2019', 
+							'0892389283', 
+							'menteng', 
+							'SMA', 
+							'islam', 
+							'renang'),
+							
+							('2',
+							'Satrio',
+							'2',
+							'2019-07-02',
+							'0023188238',
+							'subang',
+							'SMA',
+							'islam',
+							'mancing');
+
+SELECT us.id,full_name,place_of_birth_id,ct.name,date_of_birth,phone_number,address,last_education,religion,uh.hobby_id 
+	FROM users us, cities ct, users_hobbies uh WHERE us.place_of_birth_id = ct.id AND us.id = uh.biodata_id;
